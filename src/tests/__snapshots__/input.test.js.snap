@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`klavaInput Snapshot should render correctly 1`] = `
+<klavaInput
+  Example="Test pen"
+  Inputed="Test p"
+/>
+`;
