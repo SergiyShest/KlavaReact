@@ -14,7 +14,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
+    "test-debug": "node-debug --nodejs --harmony ./node_modules/jest-cli/bin/jest.js --runInBand",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

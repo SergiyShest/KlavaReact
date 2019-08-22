@@ -2,69 +2,87 @@
 import ReactDOM from 'react-dom';
 import Counter from './counter.jsx';
 import KlavaInput from './klavaInput.jsx';
+import { GetSentation } from "./TextCreation.js";
+import Setting from "./setting.jsx";
 
-
+export const inputStrStyle = {
+    width: '100%',
+    // font- family: { 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans - serif}
+    fontSize: '42px',
+    textAlign: 'left',
+    backgroundColor: 'rgb(212, 212, 236)'
+}
 export default class KlavaMain extends React.Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
-            count: 0,
+            InputedCharCount: 0,
             Example: "Проба пера",
-            Inputed: "Проба пx",
+            Inputed: "",
             errorCount: 0,
-            nextChar: ''
+            nextChar: '',
+            lastSpeed: 0,
+            placeholder: 'input sting above'
 
         };
-        this.addClick = this.addClick.bind(this);
-        this.ResetClick = this.ResetClick.bind(this);
     }
-    updateResult = (value) => {
-        this.setState({ currentSpeed: value })
+    handleInputedText = (event) => {
+        this.setState({ Inputed: event.target.value });
     }
-
-    addClick() {
+    errorCounter = () => {
         this.setState(state => ({
-            count: this.state.count + 1
+            errorCount: this.state.errorCount + 1
         }));
     }
-    ResetClick() {
+    next = () => {
+        this.refs.counter.Stop();
         this.setState(state => ({
-            count: 0
+
+            Example: '',
+            Inputed: '',
+            placeholder: "Уour speed is " + this.refs.counter.GetSpeed() + 'press Enter for continue'
         }));
     }
+    setNextChar = (value) => {
+        this.setState(state => ({
+            nextChar: value,
+            InputedCharCount: this.state.Inputed.length
+        }));
+    }
+    keyPress=(e)=> {
+        if (e.keyCode == 13) {
+            this.Start();
+        }
+    }
+    Start=()=>
+    {
 
-
-    errorCounter() {
-        console.log('Error happend')
-        // this.setState(state => ({
-        //     errorCount: this.state.errorCount+1
-        //})); 
+        this.refs.counter.Start();
+        this.setState(state => ({ errorCount: 0, Example: GetSentation() }));
     }
 
-    next() {
 
-    }
-
-
-    setNextChar(value) {
-        this.nextChar = value;
+    componentDidMount() {
+        this.Start();
     }
     render() {
         return (
             <div>
+                <p>Ошибок {this.state.errorCount}</p>
+                <Counter ref='counter' InputedCharCount={this.state.InputedCharCount} />
                 <KlavaInput
                     Example={this.state.Example}
                     Inputed={this.state.Inputed}
                     error={this.errorCounter}
                     next={this.next}
-                    ok={this.setNextChar}
+                    nextChar={this.setNextChar}
                 />
-                <p>{this.state.currentSpeed}</p>
-                <Counter InputedCharCount={this.state.count} result={this.updateResult} />
-                <button onClick={this.addClick}>click me - {this.state.count}</button>
-                <button onClick={this.ResetClick}>reset  </button>
+                <input placeholder={this.state.placeholder}
+                    onKeyDown={this.keyPress}
+                    autoFocus type="text" style={inputStrStyle}
+                    value={this.state.Inputed}
+                    onChange={this.handleInputedText} />
+                <Setting/>
             </div >
         );
     }
