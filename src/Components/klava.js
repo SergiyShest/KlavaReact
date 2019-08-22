@@ -17,14 +17,15 @@ export default class KlavaMain extends React.Component {
         super(props);
         this.state = {
             InputedCharCount: 0,
-            Example: "Проба пера",
+            Example: GetSentation(),
             Inputed: "",
             errorCount: 0,
             nextChar: '',
             lastSpeed: 0,
             placeholder: 'input sting above'
 
-        };
+        }
+        
     }
     handleInputedText = (event) => {
         this.setState({ Inputed: event.target.value });
@@ -49,7 +50,8 @@ export default class KlavaMain extends React.Component {
             InputedCharCount: this.state.Inputed.length
         }));
     }
-    keyPress=(e)=> {
+    keyPress = (e) => {
+
         if (e.keyCode == 13) {
             this.Start();
         }
@@ -63,7 +65,7 @@ export default class KlavaMain extends React.Component {
 
 
     componentDidMount() {
-        this.Start();
+        
     }
     render() {
         return (
@@ -82,7 +84,7 @@ export default class KlavaMain extends React.Component {
                     autoFocus type="text" style={inputStrStyle}
                     value={this.state.Inputed}
                     onChange={this.handleInputedText} />
-                <Setting/>
+                <Setting  />
             </div >
         );
     }

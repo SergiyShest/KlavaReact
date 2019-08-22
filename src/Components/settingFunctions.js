@@ -19,7 +19,7 @@ export class Set {
     get Lang() {
         return this.selectedLang.val;
     }
-    set Lang(val)   1`
+    set Lang(val)  
     {
         var al = Set.AvaiableLangriges();
 
@@ -97,7 +97,7 @@ export function LoadCurrUser(userArrey) {
 export function LoadUserSettings(userName) {
 
     var userSettingStr = localStorage.getItem(userName + "_setting");//read as string
-    if (userSettingStr != null) {V99//
+    if (userSettingStr != null) {
         try {
             return JSON.parse(userSettingStr, function (key, val) {
                                if (typeof (val) === 'object' && key === '')
@@ -136,6 +136,18 @@ export function SaveUserSettings(userName, userSetting) {
     } catch (ex) {
         console.error("Err" + ex);
     }
+}
+
+export function SaveUser(userName) {
+    var users = localStorage.getItem('users');
+    users += ';' + userName;
+    localStorage.setItem('users', users);
+    SetUserCurrent( userName);
+}
+
+export function SetUserCurrent(userName) {
+
+    localStorage.setItem('currentUser', userName);
 }
 
 function typeOf(obj) {

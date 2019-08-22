@@ -38,14 +38,14 @@ export default class KlavaInput extends React.Component {
         };
     }
 
-    compare() {
+    compare(Example, Inputed) {
         var okText = '';  var erText = '';  var notInptText = '';
-        if (this.props.Example == null) return;
-        for (var i = 0; i < this.props.Example.length; i++) {
-            var exChar = this.props.Example[i];
+        if (Example == null) return;
+        for (var i = 0; i < Example.length; i++) {
+            var exChar = Example[i];
             console.log(exChar);
             var inpChar = '';
-            if (i < this.props.Inputed.length) { inpChar = this.props.Inputed[i]; }
+            if (i < Inputed.length) { inpChar = Inputed[i]; }
 
             if (inpChar == exChar && erText.length == 0) {
                 okText += inpChar;
@@ -54,16 +54,25 @@ export default class KlavaInput extends React.Component {
             if (inpChar == '') {
                 notInptText += exChar; continue;
             }
-            if (inpChar != exChar || this.erText.length > 0) {
+            if (inpChar != exChar || erText.length > 0) {
                 erText += exChar;
             }
         }
-        console.log(erText);
-        if (this.state.erText.length == 0 && erText.length > 0) {
+       
+        if (this.state.erText.length == 0 && erText.length > 0) {//error begin
           
             this.props.error();
         }
-
+        if (erText.length == 0) {
+            if (Inputed.length >= Example.length) {
+                this.props.next();//text ended
+            }
+            else {
+                this.props.nextChar(Example.substr(Inputed.length, 1));//send next char
+            }
+        } else {
+            this.props.nextChar(Example.substr('<='));
+        }
         this.setState(state => ({
             okText: okText,erText:erText,notInptText:notInptText
         }));
@@ -71,19 +80,16 @@ export default class KlavaInput extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.Example + '============' + this.props.Inputed)
-        this.compare();
+        this.compare(this.props.Example,this.props.Inputed);
     }
 
     componentWillReceiveProps(nextProps)
     {
-       // if (this.props.InputedCharCount == 0 && nextProps.InputedCharCount == 1) {//условие срабатывает когда значение меняется с 0 на 1
-        this.state.Log = ('Start=>'+nextProps);
-this.compare();
-      //      this.state.startTime = Date.now();//установил время старта
+        if (this.props.Example != nextProps.Example) //условие срабатывает когда значение меняется с 0 на 1
+            { this.compare(nextProps.Example, this.props.Inputed); }
+            if (this.props.Inputed != nextProps.Inputed) //условие срабатывает когда значение меняется с 0 на 1
+                { this.compare(this.props.Example, nextProps.Inputed); }
 
-
-      //  }
     }
 
     render() {

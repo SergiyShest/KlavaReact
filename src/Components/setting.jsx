@@ -5,7 +5,9 @@ import {
     LoadUserAchivment,
     SaveUserAchivment,
     LoadCurrUser,
-    LoadUserSettings
+    LoadUserSettings,
+    SaveUser,
+    SetUserCurrent
 } from "./settingFunctions.js";
 
 
@@ -26,37 +28,66 @@ export default class Setting extends React.Component {
         super(props);
         this.state = {
             setting: new Set(),
-
             avaiableUsers: [],
-            AvaiableLangriges: []
+            AvaiableLangriges: [],
+            userName:''
         };
 
     }
 
     handleUserChange = (event) => {
-        this.setState({ userName: event.target.value });
+        var userName = event.target.value;
+            SetUserCurrent(userName)
+        this.state.setting = LoadUserSettings(userName);
+        this.setState({ userName: userName });
     }
     handleLangChange = (event) => {
         this.state.setting.Lang = event.target.value;
-        this.setState({ userName: this.state.userName });
+        this.update();
     }
 
       handleSentationsCountChange = (event) => {
         this.state.setting.SentationsCount = event.target.value;
-        this.setState({ userName: this.state.userName });
+          this.update();
     }
 
     componentDidMount() {
         this.state.avaiableUsers = Set.AvaiableUsers();
         this.state.AvaiableLangriges = Set.AvaiableLangriges();
         this.state.userName = LoadCurrUser(this.state.avaiableUsers);
+        this.state.setting = LoadUserSettings(this.state.userName);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps ,  prevState) {
+        //if (prevState.userName != this.state.userName) {
+        //    SetUserCurrent(userName)
+        //    this.state.setting = LoadUserSettings(this.state.userName);
+        //    this.update(); 
+        //}
 
     }
-    //<input type="number" value="{this.state.settings.SentationsCount}" />
-    render() {
+    update = () => {this.setState({ userName: this.state.userName });}
+
+    AddUser = () => {
+
+        var user = prompt("Please enter your name", "");
+        if (user != null) {
+            if (this.state.avaiableUsers.includes("user"))
+            {
+                alert("This user exists");
+                return;
+            }
+            SaveUser(user);
+            this.state.avaiableUsers = Set.AvaiableUsers();
+
+            this.setState({ userName: user });
+        }
+
+        
+      
+    }
+
+     render() {
         return (
             <div  >
                 <table>
@@ -97,6 +128,14 @@ export default class Setting extends React.Component {
                             </td>
                             <td>
                                 <input type="checkbox" value="{this.state.settings.IgnoreCapital}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3>Add user:</h3>
+                            </td>
+                            <td>
+                                <button onClick={this.AddUser} >Add User</button>
                             </td>
                         </tr>
                     </tbody>
