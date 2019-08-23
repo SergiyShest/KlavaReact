@@ -4,6 +4,7 @@ import {
     Set,
     LoadUserAchivment,
     SaveUserAchivment,
+    SaveUserSettings,
     LoadCurrUser,
     LoadUserSettings,
     SaveUser,
@@ -71,7 +72,11 @@ export default class Setting extends React.Component {
         //}
 
     }
-    update = () => {this.setState({ userName: this.state.userName });}
+    update = () => {
+        SaveUserSettings(this.state.userName,this.state.setting)
+
+        this.setState({ userName: this.state.userName });
+    }
 
     AddUser = () => {
 

@@ -69,7 +69,7 @@ export function LoadUserAchivment(userName, setingString) {
 //Save User Achivment to localStorage
 export function SaveUserAchivment(userName, userAchivment, setingString) {
     const userAchivmentStr = JSON.stringify(userAchivment)
-    console.log("save " + userName + "_" + setingString)
+ //   console.log("save " + userName + "_" + setingString)
     localStorage.setItem(userName + "_" + setingString, userAchivmentStr);
 }
 
