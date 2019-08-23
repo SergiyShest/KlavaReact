@@ -39,6 +39,7 @@ export default class KlavaInput extends React.Component {
     }
 
     compare(Example, Inputed) {
+        if (Example.length == 0) return;
         var okText = '';  var erText = '';  var notInptText = '';
         if (Example == null) return;
         for (var i = 0; i < Example.length; i++) {
@@ -68,6 +69,7 @@ export default class KlavaInput extends React.Component {
                 this.props.next();//text ended
             }
             else {
+              
                 this.props.nextChar(Example.substr(Inputed.length, 1));//send next char
             }
         } else {

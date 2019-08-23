@@ -52,11 +52,16 @@ export default class Setting extends React.Component {
     }
 
     componentDidMount() {
+         this.init();
+    }
+
+    init = () => {
         this.state.avaiableUsers = Set.AvaiableUsers();
         this.state.AvaiableLangriges = Set.AvaiableLangriges();
         this.state.userName = LoadCurrUser(this.state.avaiableUsers);
         this.state.setting = LoadUserSettings(this.state.userName);
     }
+
 
     componentDidUpdate(prevProps ,  prevState) {
         //if (prevState.userName != this.state.userName) {

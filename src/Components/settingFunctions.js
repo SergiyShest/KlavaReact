@@ -22,13 +22,10 @@ export class Set {
     set Lang(val)  
     {
         var al = Set.AvaiableLangriges();
-
         for (var i = 0; i < al.length; i++)
         {
-            console.log('--'+al[i].text);
             if (al[i].val == val) { this.selectedLang = al[i]}
         }
-        console.log(al.length+'--------------'+  this.selectedLang.text);
     }
 
 
@@ -112,21 +109,11 @@ export function LoadUserSettings(userName) {
 
 }
 
-//export function SerialazeUserSettings(userSetting) {
-//    try {
-//        var userSettingStr =
-//            userSetting.selectedLang + ';' +
-//            userSetting.Mode + ';' +
-//            userSetting.IgnoreCapital + ";" +
-//            userSetting.IgnoreRepeetWhiteSpace + ";" +
-//            userSetting.SentationsCount;
-//        return userSettingStr;
-//    } catch (ex) {
-//        console.error(ex);
-//    }
-
-
-//}
+export function LoadCurrentUserSetting() {
+    
+   let userName = LoadCurrUser(Set.AvaiableUsers());
+    return LoadUserSettings(userName);
+}
 
 export function SaveUserSettings(userName, userSetting) {
     try {

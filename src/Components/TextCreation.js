@@ -1,4 +1,5 @@
-﻿import { WordSet ,Dicti} from "./dictionry.js";
+﻿import { WordSet, Dicti } from "./dictionry.js";
+import {    LoadCurrentUserSetting} from "./settingFunctions.js";
 
 /*  */
 export function WordEx(dictName) {
@@ -231,7 +232,8 @@ export function GetKvasiText(count, lang, short) {
     return KvasiText(count, lang, true);
 }
 
-export function GetKvasiTextS(set, short, isxArr = null) {
+export function GetKvasiTextS(short, isxArr = null) {
+ var set = LoadCurrentUserSetting()
     var arr = new Array();
     var i = 0
     for ( i = 0; i < set.SentationsCount; i++) {

@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom';
 import Counter from './counter.jsx';
 import KlavaInput from './klavaInput.jsx';
-import { GetSentation } from "./TextCreation.js";
+import { GetKvasiTextS } from "./TextCreation.js";
 import Setting from "./setting.jsx";
 
 export const inputStrStyle = {
@@ -17,7 +17,8 @@ export default class KlavaMain extends React.Component {
         super(props);
         this.state = {
             InputedCharCount: 0,
-            Example: GetSentation(),
+            ExampleArr: [],
+            Example:'',
             Inputed: "",
             errorCount: 0,
             nextChar: '',
@@ -27,6 +28,12 @@ export default class KlavaMain extends React.Component {
         }
         
     }
+
+     GetExample = () => {
+        if ( this.state.ExampleArr.length == 0) return '';
+        return  this.state.ExampleArr[0];
+    }
+
     handleInputedText = (event) => {
         this.setState({ Inputed: event.target.value });
     }
@@ -39,7 +46,7 @@ export default class KlavaMain extends React.Component {
         this.refs.counter.Stop();
         this.setState(state => ({
 
-            Example: '',
+            ExampleArr: [],
             Inputed: '',
             placeholder: "Уour speed is " + this.refs.counter.GetSpeed() + 'press Enter for continue'
         }));
@@ -58,14 +65,18 @@ export default class KlavaMain extends React.Component {
     }
     Start=()=>
     {
-
         this.refs.counter.Start();
-        this.setState(state => ({ errorCount: 0, Example: GetSentation() }));
+        var exampleArr = GetKvasiTextS(false);
+        var ex = exampleArr[0];
+        this.setState(state => ({ errorCount: 0, Example: ex,ExampleArr:exampleArr }));
     }
 
 
     componentDidMount() {
-        
+     var exampleArr = GetKvasiTextS(false);
+        var ex = exampleArr[0];
+        this.setState(state => ({ Example: ex, ExampleArr: exampleArr  }));
+
     }
     render() {
         return (
@@ -73,7 +84,7 @@ export default class KlavaMain extends React.Component {
                 <p>Ошибок {this.state.errorCount}</p>
                 <Counter ref='counter' InputedCharCount={this.state.InputedCharCount} />
                 <KlavaInput
-                    Example={this.state.Example}
+                    Example={this.state.Example }
                     Inputed={this.state.Inputed}
                     error={this.errorCounter}
                     next={this.next}
@@ -84,7 +95,7 @@ export default class KlavaMain extends React.Component {
                     autoFocus type="text" style={inputStrStyle}
                     value={this.state.Inputed}
                     onChange={this.handleInputedText} />
-                <Setting  />
+                <Setting   />
             </div >
         );
     }
