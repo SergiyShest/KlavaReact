@@ -74,7 +74,6 @@ export default class Setting extends React.Component {
     }
     update = () => {
         SaveUserSettings(this.state.userName,this.state.setting)
-
         this.setState({ userName: this.state.userName });
     }
 
@@ -122,24 +121,9 @@ export default class Setting extends React.Component {
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <h3>Centanion count:</h3>
-                            </td>
-                            <td>
-                                <input type="number"
-                                    value={this.state.setting.SentationsCount}
-                                    onChange={this.handleSentationsCountChange} />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3>Ignore Capital:</h3>
-                            </td>
-                            <td>
-                                <input type="checkbox" value="{this.state.settings.IgnoreCapital}" />
-                            </td>
-                        </tr>
+
+
+                        
                         <tr>
                             <td>
                                 <h3>Add user:</h3>
@@ -156,3 +140,20 @@ export default class Setting extends React.Component {
         );
     }
 }
+                        //<tr>
+                        //    <td>
+                        //        <h3>Centanion count:</h3>
+                        //    </td>
+                        //    <td>
+                        //        <input type="number"
+                        //            value={this.state.setting.SentationsCount}
+                        //            onChange={this.handleSentationsCountChange} />
+                        //    </td>
+                        //</tr>
+//<tr>
+//    <td>
+//        <h3>Ignore Capital:</h3>
+//    </td>
+//    <td>
+//        <input type="checkbox" value="{this.state.settings.IgnoreCapital}" />
+//    </td></tr>

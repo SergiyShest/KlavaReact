@@ -34,7 +34,10 @@ export class Set {
     }
 
     static AvaiableModes() {
-        return [{ val: 'KvaziText', text: "Псевдо текст" }, { val: 'chars', text: "набор букв" }, , { val: 'words', text: "набор слов" }];
+        return [
+            { val: 'KvaziText', text: "Псевдо текст" },
+            { val: 'chars', text: "набор букв" },
+            { val: 'words', text: "набор слов" }];
     }
 
     static AvaiableUsers() {
@@ -69,7 +72,17 @@ export function LoadUserAchivment(userName, setingString) {
 //Save User Achivment to localStorage
 export function SaveUserAchivment(userName, userAchivment, setingString) {
     const userAchivmentStr = JSON.stringify(userAchivment)
- //   console.log("save " + userName + "_" + setingString)
+ // console.log("save " + userName + "_" + setingString)
+    localStorage.setItem(userName + "_" + setingString, userAchivmentStr);
+}
+
+export function AddUserAchivment(res, error) {
+
+    let userName = LoadCurrUser(Set.AvaiableUsers());
+    let settings = LoadUserSettings(userName);
+    let settingsSer= JSON.stringify(settings);
+
+    const userAchivmentStr = JSON.stringify(userAchivment)
     localStorage.setItem(userName + "_" + setingString, userAchivmentStr);
 }
 
