@@ -72,7 +72,7 @@ export default class Chart extends Component {
     render() {
         return (
             <div>
-                <h2>Среднее значение за поледние {this.state.N} попыток  {this.state.avg}</h2>
+                <h2>Средняя скорость за поcледние {this.state.N} попыток  {this.state.avg} символов в минуту</h2>
                 <Bar ref="chart" data={this.state.data} />
             </div>
         );
