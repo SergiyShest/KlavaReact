@@ -39,41 +39,44 @@ export default class KlavaInput extends React.Component {
     }
 
     compare(Example, Inputed) {
-        if (Example.length == 0) return;
-        var okText = '';  var erText = '';  var notInptText = '';
-        if (Example == null) return;
-        for (var i = 0; i < Example.length; i++) {
-            var exChar = Example[i];
-            console.log(exChar);
-            var inpChar = '';
-            if (i < Inputed.length) { inpChar = Inputed[i]; }
+        
+        var okText = ''; var erText = ''; var notInptText = '';
+        if (typeof Example !== 'undefined' &&
+            Example != null &&
+            Example.length > 0) {
+            for (var i = 0; i < Example.length; i++) {
+                var exChar = Example[i];
 
-            if (inpChar == exChar && erText.length == 0) {
-                okText += inpChar;
-                continue;
+                var inpChar = '';
+                if (i < Inputed.length) { inpChar = Inputed[i]; }
+
+                if (inpChar == exChar && erText.length == 0) {
+                    okText += inpChar;
+                    continue;
+                }
+                if (inpChar == '') {
+                    notInptText += exChar; continue;
+                }
+                if (inpChar != exChar || erText.length > 0) {
+                    erText += exChar;
+                }
             }
-            if (inpChar == '') {
-                notInptText += exChar; continue;
+
+            if (this.state.erText.length == 0 && erText.length > 0) {//error begin
+
+                this.props.error();
             }
-            if (inpChar != exChar || erText.length > 0) {
-                erText += exChar;
+            if (erText.length == 0) {
+                if (Inputed.length >= Example.length) {
+                    this.props.next();//text ended
+                }
+                else {
+
+                    this.props.nextChar(Example.substr(Inputed.length, 1));//send next char
+                }
+            } else {
+                this.props.nextChar(Example.substr('<='));
             }
-        }
-       
-        if (this.state.erText.length == 0 && erText.length > 0) {//error begin
-          
-            this.props.error();
-        }
-        if (erText.length == 0) {
-            if (Inputed.length >= Example.length) {
-                this.props.next();//text ended
-            }
-            else {
-              
-                this.props.nextChar(Example.substr(Inputed.length, 1));//send next char
-            }
-        } else {
-            this.props.nextChar(Example.substr('<='));
         }
         this.setState(state => ({
             okText: okText,erText:erText,notInptText:notInptText

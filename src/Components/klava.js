@@ -4,6 +4,7 @@ import Counter from './counter.jsx';
 import KlavaInput from './klavaInput.jsx';
 import { GetKvasiTextS } from "./TextCreation.js";
 import Setting from "./setting.jsx";
+import { AddUserAchivment, GetUserAchivment, LoadCurrUser, LoadUserSettings, SaveUserSettings, Set, MD5 } from "./settingFunctions.js";
 import Chart from './chart.jsx';
 
 export const inputStrStyle = {
@@ -19,26 +20,24 @@ export default class KlavaMain extends React.Component {
         this.state = {
             InputedCharCount: 0,
             ExampleArr: [],
-            currentSentetion:0,
-            Example:'',
+            currentSentetion: 0,
+            Example: '',
             Inputed: "",
             errorCount: 0,
             nextChar: '',
             lastSpeed: 0,
-            placeholder: 'введите строку выше'
-
+            placeholder: 'введите строку выше',
+            UserAchivment: [],
+            translatedInRussian:''
         }
-        
     }
 
-     GetExample = () => {
-        if ( this.state.ExampleArr.length == 0) return '';
-        return  this.state.ExampleArr[0];
+    GetExample = () => {
+        if (this.state.ExampleArr.length == 0) return '';
+        return this.state.ExampleArr[0];
     }
 
-    handleInputedText = (event) => {
-        this.setState({ Inputed: event.target.value });
-    }
+
     errorCounter = () => {
         this.setState(state => ({
             errorCount: this.state.errorCount + 1
@@ -48,14 +47,19 @@ export default class KlavaMain extends React.Component {
         this.state.currentSentetion++;
         if (parseInt(this.refs.setting.state.setting.SentationsCount) <= this.state.currentSentetion) {
             this.refs.counter.Stop();
-
+            AddUserAchivment(this.refs.counter.GetSpeed(), this.state.errorCount);
+            var ua = GetUserAchivment();
+     
             this.setState(state => ({
                 ExampleArr: [],
+               // Example: '',
                 Inputed: '',
-                placeholder: "Ваша скорость " + this.refs.counter.GetSpeed() + ' нажмите Enter для продолжения.'
+                placeholder: "Ваша скорость " + this.refs.counter.GetSpeed() + ' нажмите Enter для продолжения.',
+                UserAchivment: ua
             }));
         } else {
             this.setState(state => ({
+
                 Example: this.state.ExampleArr[this.state.currentSentetion],
                 Inputed: '',
                 placeholder: "Текущая скорость " + this.refs.counter.GetSpeed() + ' продолжайте печатать!'
@@ -69,33 +73,63 @@ export default class KlavaMain extends React.Component {
             InputedCharCount: this.state.Inputed.length
         }));
     }
+
+    handleInputedText = (event) => {
+        if (!this.refs.counter.state.running) { return false;}
+        this.setState({ Inputed: event.target.value });
+    }
+
+    //restart by enter
     keyPress = (e) => {
-        if (e.keyCode == 13) {//restart by enter
+
+
+        if (e.keyCode == 13) {
             this.Start();
         }
     }
-    Start=()=>
-    {
+    Start = () => {
+        this.state.currentSentetion = 0;
+        console.log('Start');
         this.refs.counter.Start();
-        var exampleArr = GetKvasiTextS(false);
+        var trArr = [];
+        var exampleArr = GetKvasiTextS(false, trArr);
         var ex = exampleArr[this.state.currentSentetion];
-        this.setState(state => ({ errorCount: 0, Example: ex,ExampleArr:exampleArr }));
+
+        var ua = GetUserAchivment();
+
+        this.setState(state => ({
+            errorCount: 0,
+            Example: ex,
+            Inputed: '',
+            ExampleArr: exampleArr,
+            UserAchivment: ua,
+            translatedInRussian:trArr[this.state.currentSentetion]
+        }));
     }
     componentDidMount() {//initial
 
-        var exampleArr = GetKvasiTextS(false);
-        var ex = exampleArr[this.state.currentSentetion];
-        this.setState(state => ({ Example: ex, ExampleArr: exampleArr  }));
-
+        this.Start();
+        //var trArr = [];
+        //var exampleArr = GetKvasiTextS(false, trArr);
+        //var ex = exampleArr[this.state.currentSentetion];
+        //var ua = GetUserAchivment();
+        //this.setState(state => ({
+        //    Example: ex,
+        //    ExampleArr: exampleArr,
+        //    UserAchivment: ua,
+        //    translatedInRussian:trArr[this.state.currentSentetion]
+        //}));
     }
+
+
     render() {
         return (
             <div>
                 <p>Ошибок {this.state.errorCount}</p>
                 <Counter ref='counter' InputedCharCount={this.state.InputedCharCount} />
-                <div>{this.state.RusTranslatedExample}</div>
+                <div>{this.state.translatedInRussian}</div>
                 <KlavaInput
-                    Example={this.state.Example }
+                    Example={this.state.Example}
                     Inputed={this.state.Inputed}
                     error={this.errorCounter}
                     next={this.next}
@@ -106,9 +140,18 @@ export default class KlavaMain extends React.Component {
                     autoFocus type="text" style={inputStrStyle}
                     value={this.state.Inputed}
                     onChange={this.handleInputedText} />
-                <table><tbody>
-                    <tr><td width="20%">    <Setting ref='setting' /></td><td width="80%">
-            <Chart/></td></tr></tbody></table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td width="20%">
+                                <Setting ref='setting' />
+                            </td>
+                            <td width="80%">
+                                <Chart UserAchivment={this.state.UserAchivment} />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div >
         );
     }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.8.0",
+    "js-md5": "^0.7.3",
     "react": "^16.9.0",
     "react-addons-test-utils": "^15.6.2",
     "react-chartjs-2": "^2.7.6",
