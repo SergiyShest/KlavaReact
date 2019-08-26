@@ -41,31 +41,31 @@ describe('klavaInput Snapshot', () => {
     });
 });
 
-describe('klavaInput text', () => {
-    it('should by correctly', () => {
+// describe('klavaInput text', () => {
+//     it('should by correctly', () => {
 
-        const wrapper = shallow(
-            <klavaInput
-                Example={Example}
-                Inputed={Inputed}
-                error={errorCounter}
-                next={next}
-                ok={setNextChar} />
-        );
-        const inst = wrapper.instance();
-        wrapper.setProps({ Inputed: 'Test pE' });//set lact char err
-        console.log(inst);
-         //console.log(wrapper.find('#okText'));
-        var okText = inst.state.okText;
-        console.log(okText);
-        //var erText = wrapper.find('#erText').text();
-        //var notInptText = wrapper.find('#notInptText').text();
+//         const wrapper = shallow(
+//             <klavaInput
+//                 Example={Example}
+//                 Inputed={Inputed}
+//                 error={errorCounter}
+//                 next={next}
+//                 ok={setNextChar} />
+//         );
+//         const inst = wrapper.instance();
+//         wrapper.setProps({ Inputed: 'Test pE' });//set lact char err
+//         console.log(inst);
+//          //console.log(wrapper.find('#okText'));
+//         var okText = inst.state.okText;
+//         console.log(okText);
+//         //var erText = wrapper.find('#erText').text();
+//         //var notInptText = wrapper.find('#notInptText').text();
 
-        //expect(okText).toBe('Test p');
-        //expect(notInptText).toBe('E');
-        //expect(erText).toBe('en');
-    });
-});
+//         //expect(okText).toBe('Test p');
+//         //expect(notInptText).toBe('E');
+//         //expect(erText).toBe('en');
+//     });
+// });
 
 
 //describe('klavaInput Test Events', () => {

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter Snapshot should render correctly 1`] = `
+<div>
+  <p>
+    Времени с начала: 
+    0
+     sec
+  </p>
+  <p
+    id="speed"
+  >
+    Скорость: 
+    0
+     символов в минуту
+  </p>
+  <p
+    id="inputedCharCount"
+  >
+    Введено символов: 
+    0
+     
+  </p>
+</div>
+`;

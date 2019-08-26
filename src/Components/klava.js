@@ -109,16 +109,7 @@ export default class KlavaMain extends React.Component {
     componentDidMount() {//initial
 
         this.Start();
-        //var trArr = [];
-        //var exampleArr = GetKvasiTextS(false, trArr);
-        //var ex = exampleArr[this.state.currentSentetion];
-        //var ua = GetUserAchivment();
-        //this.setState(state => ({
-        //    Example: ex,
-        //    ExampleArr: exampleArr,
-        //    UserAchivment: ua,
-        //    translatedInRussian:trArr[this.state.currentSentetion]
-        //}));
+    
     }
 
 
