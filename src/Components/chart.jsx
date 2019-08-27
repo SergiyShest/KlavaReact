@@ -28,12 +28,12 @@ export default class Chart extends Component {
                 ]
             },
             avg: 0,
-            N:10
+            N: 10
         }
     }
     componentWillReceiveProps(nextProps) {
 
-    
+
         if (nextProps.UserAchivment != this.props.UserAchivment) {
 
 
@@ -50,11 +50,20 @@ export default class Chart extends Component {
 
             });
 
-             var len=this.state.data.datasets[0].data.length
-             var lastN=  this.state.data.datasets[0].data.slice(Math.max(0, len - this.state.N), len);
+            var len = this.state.data.datasets[0].data.length;
+            var lastN = this.state.data.datasets[0].data.slice(Math.max(0, len - this.state.N), len);
             this.state.avg = avg(lastN);
 
+          this.state.data.datasets[0].data = this.state.data.datasets[0].data.slice(Math.max(0, len - 80), len);
+          this.state.data.datasets[1].data = this.state.data.datasets[1].data.slice(Math.max(0, len - 80), len);
+
+
+            this.state.data.labels = [];
+            for (var i = Math.max(0, len - 100); i < len; i++) {//set chact labels
+                this.state.data.labels.push(i);
+            }
             this.setState({ data: this.state.data });
+
         }
         var chart = this.refs.chart.chartInstance;
         chart.update();
@@ -64,9 +73,7 @@ export default class Chart extends Component {
     }
 
     componentDidMount() {
-          for (var i = 0; i < 100; i++) {
-                this.state.data.labels.push(i);
-            }
+
     }
 
     render() {

@@ -59,12 +59,6 @@ afterEach(function () { clock.restore(); });
 //     wrapper.setProps({ InputedCharCount: 2 });
 //     testValues(wrapper, '120', '2');//two char in 2 sec equals 60 character in minute
 
-
-
-
-
-
-
 // });
 
 it('running test Counter', () => {

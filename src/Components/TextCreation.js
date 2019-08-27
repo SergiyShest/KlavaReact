@@ -5,7 +5,7 @@ import {    LoadCurrentUserSetting} from "./settingFunctions.js";
 export function WordEx(dictName) {
     var counerNam = dictName + "_counter";
     var word = '';
-    //  console.log('Dicti['+counerNam+']='+Dicti[counerNam]);
+   console.log('--                                  --'+dictName);
     if (!Dicti[counerNam]) { Dicti[counerNam] = 0 }//set counter=0 first time
     if (Dicti[counerNam] == 0) {
         shuffleArray(Dicti[dictName]);//
@@ -49,7 +49,7 @@ function GetSentationM() {
     var s =
         WordEx('Adjectives') + ' и ' +//прилагательное
         WordEx('Adjectives') + ' ' +
-        WordEx('Nouns') + ' ' +//существительное
+        WordEx('Actors') + ' ' +//существительное
         WordEx('AddVerbs') + ' ' +//наречие
         WordEx('Verb');//глагол
 
@@ -62,9 +62,9 @@ function GetSentationW() {
     var s =
         WordEx('AdjectivesW') + ' и ' +
         WordEx('AdjectivesW') + ' ' +
-        WordEx('NounsW') + ' ' +
+        WordEx('ActorsWomen') + ' ' +
         WordEx('AddVerbs') + ' ' +
-        WordEx('VerbsW');
+        WordEx('VerbW');
 
     return s + AddPlace() + '.';
 }
@@ -73,9 +73,9 @@ function GetSentation3() {
 
     var s =
         WordEx('AdjectivesW') + ', ' + WordEx('AdjectivesW') + ' и ' + WordEx('AdjectivesW') + ' ' +
-        WordEx('NounsW') + ' ' +
+        WordEx('ActorsWomen') + ' ' +
         WordEx('AddVerbs') + ' ' +
-        WordEx('VerbsW');
+        WordEx('VerbW');
     return s + AddPlace() + '.';
 }
 
@@ -83,10 +83,10 @@ export function GetSentation4() {
 
     var s =
         WordEx('AdjectivesW') + ' и ' + WordEx('AdjectivesW') + ' ' +
-        WordEx('NounsW') + ' ' +
+        WordEx('ActorsWomen') + ' ' +
         WordEx('AddVerbs') + ' и ' +
         WordEx('AddVerbs') + ' ' +
-        WordEx('VerbsW');
+        WordEx('VerbW');
     return s + AddPlace() + '.';
 }
 
@@ -96,7 +96,7 @@ export function GetSentation5() {
 
     var s =
         WordEx('AdjectivesW') + ' ' +
-        WordEx('NounsW') + ' и ' + WordEx('Adjectives') + ' ' + WordEx('Nouns') + ' ' +
+        WordEx('ActorsWomen') + ' и ' + WordEx('Adjectives') + ' ' + WordEx('Actors') + ' ' +
         WordEx('AddVerbs') + ' ' +
         WordEx('Verbs');
     return s + AddPlace() + '.';
@@ -106,9 +106,9 @@ export function GetSentation6() {
 
 
     var s =
-        WordEx('Adjectives') + ' ' + WordEx('Nouns') +
+        WordEx('Adjectives') + ' ' + WordEx('Actors') +
         ' и ' +
-        WordEx('AdjectivesW') + ' ' + WordEx('NounsW') + ' ' +
+        WordEx('AdjectivesW') + ' ' + WordEx('ActorsWomen') + ' ' +
         WordEx('AddVerbs') + ' ' +
         WordEx('Verbs');
     return s + AddPlace() + '.';
@@ -117,7 +117,7 @@ export function GetSentation6() {
 
 export function GetSentation7() {
 
-    var s = WordEx('Adjectives') + ' ' + WordEx('Nouns') + ' и ' + WordEx('Adjectives') + ' ' + WordEx('Nouns') + ' ' + WordEx('AddVerbs') + ' ' + WordEx('Verbs') + ' и ' + WordEx('AddVerbs') + ' ' + WordEx('Verbs') + ' ';
+    var s = WordEx('Adjectives') + ' ' + WordEx('Actors') + ' и ' + WordEx('Adjectives') + ' ' + WordEx('Actors') + ' ' + WordEx('AddVerbs') + ' ' + WordEx('Verbs') + ' и ' + WordEx('AddVerbs') + ' ' + WordEx('Verbs') + ' ';
     return s + AddPlace() + '.';
 }
 
@@ -134,7 +134,7 @@ export function AddPlace() {
 //получение случайного предложения
 export  function GetSentation(short = false) {
 
-    if (short) return WordEx('Nouns');//режим для теста
+    if (short) return WordEx('Actors');//режим для теста
 
     var sentence = '';//GetSentationW();
     var sentType = Math.floor(Math.random() * 7);//получаю случайное число от 0 до 3

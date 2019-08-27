@@ -49,22 +49,18 @@ export default class KlavaMain extends React.Component {
             this.refs.counter.Stop();
             AddUserAchivment(this.refs.counter.GetSpeed(), this.state.errorCount);
             var ua = GetUserAchivment();
-     
             this.setState(state => ({
                 ExampleArr: [],
-               // Example: '',
                 Inputed: '',
                 placeholder: "Ваша скорость " + this.refs.counter.GetSpeed() + ' нажмите Enter для продолжения.',
                 UserAchivment: ua
             }));
         } else {
             this.setState(state => ({
-
                 Example: this.state.ExampleArr[this.state.currentSentetion],
                 Inputed: '',
                 placeholder: "Текущая скорость " + this.refs.counter.GetSpeed() + ' продолжайте печатать!'
             }));
-
         }
     }
     setNextChar = (value) => {
@@ -81,8 +77,6 @@ export default class KlavaMain extends React.Component {
 
     //restart by enter
     keyPress = (e) => {
-
-
         if (e.keyCode == 13) {
             this.Start();
         }
@@ -94,9 +88,7 @@ export default class KlavaMain extends React.Component {
         var trArr = [];
         var exampleArr = GetKvasiTextS(false, trArr);
         var ex = exampleArr[this.state.currentSentetion];
-
         var ua = GetUserAchivment();
-
         this.setState(state => ({
             errorCount: 0,
             Example: ex,
@@ -107,11 +99,8 @@ export default class KlavaMain extends React.Component {
         }));
     }
     componentDidMount() {//initial
-
         this.Start();
-    
     }
-
 
     render() {
         return (
